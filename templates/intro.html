@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to LifeStory Curator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="intro-body minimal">
+    <div class="intro-container minimal">
+        <h1 class="intro-title minimal">SMRIVA</h1>
+        <p class="intro-tagline minimal">Your Personal Digital Historian</p>
+        <button id="enterAppBtn" class="action-btn primary-btn minimal">Begin Your Story</button>
+    </div>
+
+    <script>
+        document.getElementById('enterAppBtn').addEventListener('click', () => {
+            window.location.href = '/main_app';
+        });
+    </script>
+</body>
+</html>

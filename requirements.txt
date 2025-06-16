@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy # To make database interactions easier
+transformers
+torch # PyTorch is recommended for Transformers models
+soundfile
+librosa
+accelerate # For faster inference with Hugging Face models
+bitsandbytes # For quantized models, if you want to use them (optional, but good for larger models)

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeStory Curator Web - Enhanced</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Flatpickr for date picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>SMRIVA</h1>
+
+        <!-- About/How It Works Section -->
+        <div class="card about-section">
+            <h2 class="about-toggle">About LifeStory Curator <span class="toggle-icon">&#9660;</span></h2>
+            <div class="about-content">
+                <p><strong>Your Personal Digital Historian:</strong> "LifeStory Curator Web" helps you easily capture, organize, and transform your daily thoughts and memories into personalized life stories. It acts as your private digital journal and storyteller, all running directly from your computer without needing external cloud services or subscriptions.</p>
+                <h3>How It Works:</h3>
+                <ul>
+                    <li><strong>Calendar-Driven Journaling:</strong> Pick any date, write or speak your entry, and upload images. All saved locally.</li>
+                    <li><strong>Voice-to-Text Transcription:</strong> Click "Speak to Type" and advanced AI transcribes your voice directly.</li>
+                    <li><strong>AI-Powered Narrative Generation:</strong> Select a date range, and AI summarizes your entries into a coherent life story, including images.</li>
+                    <li><strong>Story Management:</strong> Easily copy, save, or share your curated stories.</li>
+                </ul>
+                <p class="tech-stack"><strong>Core Technologies:</strong> Python Flask, SQLite, Hugging Face Transformers (Whisper ASR, DistilBART), FFmpeg, HTML, CSS (Glassmorphism), JavaScript.</p>
+            </div>
+        </div>
+
+        <div class="card journal-section">
+            <h2>Your Daily Journal</h2>
+            <div class="date-picker-container">
+                <label for="journalDate">Select Date:</label>
+                <input type="text" id="journalDate" class="flatpickr-input" placeholder="Select a date...">
+            </div>
+            <textarea id="journalEntry" placeholder="Write or speak your thoughts here..."></textarea>
+            <div class="input-actions">
+                <button id="speakToTypeBtn" class="action-btn">Speak to Type <span class="recording-indicator"></span></button>
+                <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                <button id="uploadImageBtn" class="action-btn">Upload Image</button>
+                <button id="saveEntryBtn" class="action-btn primary-btn">Save Entry</button>
+            </div>
+            <div id="imagePreviewContainer" class="image-preview-container"></div>
+        </div>
+
+        <!-- NEW: Past Entries / Timeline Section -->
+        <div class="card past-entries-section">
+            <h2>Your Journal Timeline</h2>
+            <div id="journalTimeline" class="journal-timeline">
+                <!-- Entries will be loaded here by JavaScript -->
+                <p class="no-entries-message">No past entries yet. Start writing your story!</p>
+            </div>
+        </div>
+
+        <!-- NEW: Dashboard / Summary Statistics Section -->
+        <div class="card dashboard-section">
+            <h2>Your Journal Overview</h2>
+            <div class="dashboard-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="totalEntries">0</span>
+                    <span class="stat-label">Total Entries</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="totalWords">0</span>
+                    <span class="stat-label">Total Characters Written</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="mostActiveMonth">-</span>
+                    <span class="stat-label">Most Active Month</span>
+                </div>
+            </div>
+            <h3>Entries per Month:</h3>
+            <div id="entriesPerMonthChart" class="entries-per-month-chart">
+                <p class="no-data-message">No data to display.</p>
+                <!-- Chart/list will be rendered here -->
+            </div>
+        </div>
+
+
+        <div class="card story-generator-section">
+            <h2>Generate Your Life Story</h2>
+            <div class="date-range-container">
+                <div>
+                    <label for="fromDate">From Date:</label>
+                    <input type="text" id="fromDate" class="flatpickr-input" placeholder="Select start date...">
+                </div>
+                <div>
+                    <label for="toDate">To Date:</label>
+                    <input type="text" id="toDate" class="flatpickr-input" placeholder="Select end date...">
+                </div>
+            </div>
+            <button id="generateStoryBtn" class="action-btn primary-btn">Generate Life Story</button>
+            <div class="story-output">
+                <h3>Generated Story:</h3>
+                <textarea id="generatedStory" readonly placeholder="Your story will appear here..."></textarea>
+                <div class="story-actions">
+                    <button id="copyStoryBtn" class="action-btn">Copy</button>
+                    <button id="saveNarrativeBtn" class="action-btn">Save Narrative</button>
+                    <button id="shareStoryBtn" class="action-btn">Share</button>
+                </div>
+                <div id="storyImagePreviewContainer" class="image-preview-container story-images"></div>
+            </div>
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <!-- Global Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p id="loadingMessage" class="loading-message">Processing...</p>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImage">
+        <div class="lightbox-nav lightbox-prev">&#10094;</div>
+        <div class="lightbox-nav lightbox-next">&#10095;</div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" title="Go to top">&#9650;</button>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
