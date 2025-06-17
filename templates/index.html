@@ -7,11 +7,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!-- Flatpickr for date picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>SMRIVA</h1>
+    <header class="app-header">
+        <div class="header-content">
+            <h1 class="header-title">SMRIVA</h1>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#journal-section" class="nav-link">Journal</a></li>
+                    <li><a href="#past-entries-section" class="nav-link">Timeline</a></li>
+                    <li><a href="#dashboard-section" class="nav-link">Dashboard</a></li>
+                    <li><a href="#story-generator-section" class="nav-link">Story</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
+    <div class="container">
         <!-- About/How It Works Section -->
         <div class="card about-section">
             <h2 class="about-toggle">About LifeStory Curator <span class="toggle-icon">&#9660;</span></h2>
@@ -28,7 +47,14 @@
             </div>
         </div>
 
-        <div class="card journal-section">
+        <!-- NEW: Memory Prompt Section -->
+        <div class="card memory-prompt-section">
+            <h2>Spark Your Memory</h2>
+            <p id="memoryPromptText" class="prompt-text">Click "New Prompt" to get a journaling idea!</p>
+            <button id="newPromptBtn" class="action-btn small-btn">New Prompt <i class="fas fa-sync-alt"></i></button>
+        </div>
+
+        <div class="card journal-section" id="journal-section">
             <h2>Your Daily Journal</h2>
             <div class="date-picker-container">
                 <label for="journalDate">Select Date:</label>
@@ -38,23 +64,31 @@
             <div class="input-actions">
                 <button id="speakToTypeBtn" class="action-btn">Speak to Type <span class="recording-indicator"></span></button>
                 <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
-                <button id="uploadImageBtn" class="action-btn">Upload Image</button>
-                <button id="saveEntryBtn" class="action-btn primary-btn">Save Entry</button>
+                <button id="uploadImageBtn" class="action-btn">Upload Image <i class="fas fa-image"></i></button>
+                <button id="clearEntryBtn" class="action-btn secondary-btn">Clear Entry <i class="fas fa-eraser"></i></button>
+                <button id="saveEntryBtn" class="action-btn primary-btn">Save Entry <i class="fas fa-save"></i></button>
             </div>
             <div id="imagePreviewContainer" class="image-preview-container"></div>
         </div>
 
         <!-- NEW: Past Entries / Timeline Section -->
-        <div class="card past-entries-section">
+        <div class="card past-entries-section" id="past-entries-section">
             <h2>Your Journal Timeline</h2>
+            <div class="timeline-controls">
+                <input type="text" id="timelineSearch" placeholder="Search entries..." class="search-input">
+                <button id="clearSearchBtn" class="action-btn small-btn clear-search-btn"><i class="fas fa-times"></i></button>
+            </div>
             <div id="journalTimeline" class="journal-timeline">
                 <!-- Entries will be loaded here by JavaScript -->
                 <p class="no-entries-message">No past entries yet. Start writing your story!</p>
             </div>
+            <div class="timeline-bottom-actions">
+                <button id="downloadAllEntriesBtn" class="action-btn">Download All Entries <i class="fas fa-download"></i></button>
+            </div>
         </div>
 
         <!-- NEW: Dashboard / Summary Statistics Section -->
-        <div class="card dashboard-section">
+        <div class="card dashboard-section" id="dashboard-section">
             <h2>Your Journal Overview</h2>
             <div class="dashboard-stats">
                 <div class="stat-item">
@@ -78,7 +112,7 @@
         </div>
 
 
-        <div class="card story-generator-section">
+        <div class="card story-generator-section" id="story-generator-section">
             <h2>Generate Your Life Story</h2>
             <div class="date-range-container">
                 <div>
@@ -90,14 +124,14 @@
                     <input type="text" id="toDate" class="flatpickr-input" placeholder="Select end date...">
                 </div>
             </div>
-            <button id="generateStoryBtn" class="action-btn primary-btn">Generate Life Story</button>
+            <button id="generateStoryBtn" class="action-btn primary-btn">Generate Life Story <i class="fas fa-book-open"></i></button>
             <div class="story-output">
                 <h3>Generated Story:</h3>
                 <textarea id="generatedStory" readonly placeholder="Your story will appear here..."></textarea>
                 <div class="story-actions">
-                    <button id="copyStoryBtn" class="action-btn">Copy</button>
-                    <button id="saveNarrativeBtn" class="action-btn">Save Narrative</button>
-                    <button id="shareStoryBtn" class="action-btn">Share</button>
+                    <button id="copyStoryBtn" class="action-btn">Copy <i class="fas fa-copy"></i></button>
+                    <button id="saveNarrativeBtn" class="action-btn">Save Narrative <i class="fas fa-download"></i></button>
+                    <button id="shareStoryBtn" class="action-btn">Share <i class="fas fa-share-alt"></i></button>
                 </div>
                 <div id="storyImagePreviewContainer" class="image-preview-container story-images"></div>
             </div>

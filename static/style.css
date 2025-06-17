@@ -33,7 +33,121 @@
     --spacing-md: 20px;
     --spacing-lg: 30px;
     --transition-speed: 0.3s;
+
+    /* Dark Mode Variables (Default to light values, overridden by .dark-mode) */
+    --bg-gradient-start: var(--light-purple);
+    --bg-gradient-mid: var(--medium-purple);
+    --bg-gradient-end: var(--dark-purple);
+    --body-text-color: var(--text-dark);
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --header-text-color: var(--dark-purple);
+    --card-bg: var(--glass-bg);
+    --card-border: var(--glass-border);
+    --card-shadow: var(--shadow-medium);
+    --h1-color: var(--dark-purple); /* H1 in gradient, so this might not be directly used */
+    --h2-color: var(--dark-purple);
+    --label-color: var(--dark-purple);
+    --input-bg: rgba(255, 255, 255, 0.15);
+    --input-border: var(--glass-border);
+    --input-focus-border: var(--vibrant-purple);
+    --input-placeholder-color: rgba(51, 51, 51, 0.4);
+    --textarea-story-bg: rgba(240, 248, 255, 0.05);
+    --textarea-story-border: rgba(173, 216, 230, 0.15);
+    --action-btn-bg: var(--medium-purple);
+    --action-btn-hover-bg: var(--primary-purple);
+    --action-btn-text: var(--text-light);
+    --secondary-btn-bg: #ccc;
+    --secondary-btn-hover-bg: #aaa;
+    --secondary-btn-text: var(--text-dark);
+    --timeline-item-bg: var(--timeline-bg);
+    --timeline-item-hover-bg: rgba(255, 255, 255, 0.1);
+    --timeline-item-meta-color: rgba(51, 51, 51, 0.6);
+    --no-data-text-color: rgba(51, 51, 51, 0.5);
+    --stat-value-color: var(--primary-purple);
+    --stat-label-color: var(--text-dark);
+    --month-bar-bg: rgba(255, 255, 255, 0.1);
+    --month-bar-fill: var(--medium-purple);
+    --about-toggle-color: var(--primary-purple);
+    --about-toggle-hover-color: var(--vibrant-purple);
+    --tech-stack-color: var(--dark-purple);
+    --prompt-text-color: var(--text-dark);
 }
+
+/* Dark Mode Overrides */
+body.dark-mode {
+    --bg-gradient-start: #2e0854; /* Darker purple */
+    --bg-gradient-mid: #4a148c; /* Medium dark purple */
+    --bg-gradient-end: #6a1b9a; /* Lighter dark purple */
+    --body-text-color: #e0e0e0; /* Light gray for text */
+    --header-bg: rgba(20, 20, 20, 0.8);
+    --header-text-color: #d8b4fe;
+    --card-bg: rgba(30, 30, 30, 0.6); /* Darker glass effect */
+    --card-border: rgba(60, 60, 60, 0.5);
+    --card-shadow: rgba(0, 0, 0, 0.4);
+    --h1-color: #d8b4fe; /* For header H1 */
+    --h2-color: #d8b4fe;
+    --label-color: #d8b4fe;
+    --input-bg: rgba(50, 50, 50, 0.4);
+    --input-border: rgba(80, 80, 80, 0.6);
+    --input-focus-border: #d8b4fe;
+    --input-placeholder-color: rgba(200, 200, 200, 0.4);
+    --textarea-story-bg: rgba(40, 40, 40, 0.2);
+    --textarea-story-border: rgba(100, 100, 100, 0.3);
+    --action-btn-bg: #5a2e8e;
+    --action-btn-hover-bg: #7a3faa;
+    --action-btn-text: #ffffff;
+    --secondary-btn-bg: #444;
+    --secondary-btn-hover-bg: #666;
+    --secondary-btn-text: #e0e0e0;
+    --timeline-item-bg: rgba(50, 50, 50, 0.2);
+    --timeline-item-hover-bg: rgba(70, 70, 70, 0.3);
+    --timeline-item-meta-color: rgba(200, 200, 200, 0.6);
+    --no-data-text-color: rgba(200, 200, 200, 0.5);
+    --stat-value-color: #d8b4fe;
+    --stat-label-color: #e0e0e0;
+    --month-bar-bg: rgba(50, 50, 50, 0.2);
+    --month-bar-fill: #7a3faa;
+    --about-toggle-color: #d8b4fe;
+    --about-toggle-hover-color: #D8B4FE;
+    --tech-stack-color: #d8b4fe;
+    --prompt-text-color: #e0e0e0;
+
+    /* Flatpickr Dark Mode Adjustments */
+    .flatpickr-calendar {
+        background: rgba(30, 30, 30, 0.9) !important;
+        border: 1px solid rgba(60, 60, 60, 0.5) !important;
+        color: #e0e0e0 !important;
+    }
+    .flatpickr-months .flatpickr-prev-month,
+    .flatpickr-months .flatpickr-next-month {
+        color: #d8b4fe !important;
+    }
+    .flatpickr-current-month .flatpickr-monthDropdown-months,
+    .flatpickr-current-month .flatpickr-yearDropdown-years {
+        color: #d8b4fe !important;
+    }
+    .flatpickr-day {
+        color: #e0e0e0 !important;
+    }
+    .flatpickr-day:hover {
+        background-color: rgba(80, 80, 80, 0.5) !important;
+        color: #e0e0e0 !important;
+    }
+    .flatpickr-day.selected, .flatpickr-day.selected:hover {
+        background: #9B51E0 !important;
+        border-color: #9B51E0 !important;
+        color: #ffffff !important;
+    }
+    .flatpickr-day.today {
+        border-color: #FF69B4 !important;
+        color: #FF69B4 !important;
+    }
+    .flatpickr-day.today:hover {
+        background: #FF69B4 !important;
+        color: #ffffff !important;
+    }
+}
+
 
 /* Base Styles (General) */
 body {
@@ -41,20 +155,121 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Changed to column for header */
+    justify-content: flex-start; /* Changed to flex-start for header */
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--light-purple) 0%, var(--medium-purple) 50%, var(--dark-purple) 100%);
-    color: var(--text-dark);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+    color: var(--body-text-color);
     overflow-y: auto;
     background-attachment: fixed;
     animation: backgroundShift 15s ease infinite alternate;
+    transition: background 0.5s ease-in-out, color 0.5s ease-in-out; /* Smooth transition for theme change */
 }
 
 @keyframes backgroundShift {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
 }
+
+/* Header Styles */
+.app-header {
+    width: 100%;
+    background: var(--header-bg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: 0 4px 15px var(--shadow-medium);
+    z-index: 100;
+    position: sticky; /* Make header sticky */
+    top: 0;
+    transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: var(--spacing-sm);
+}
+
+.header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em; /* Smaller for header */
+    margin: 0;
+    background: linear-gradient(45deg, var(--primary-purple), var(--vibrant-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.5s ease-in-out; /* For dark mode text color */
+}
+
+body.dark-mode .header-title {
+    background: none;
+    -webkit-text-fill-color: var(--header-text-color);
+    text-shadow: none;
+}
+
+
+.main-nav .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main-nav .nav-link {
+    text-decoration: none;
+    color: var(--header-text-color);
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.main-nav .nav-link:hover {
+    background-color: rgba(138, 43, 226, 0.1);
+    color: var(--primary-purple);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .main-nav .nav-link {
+    color: var(--header-text-color);
+}
+
+body.dark-mode .main-nav .nav-link:hover {
+    background-color: rgba(216, 180, 254, 0.1);
+    color: var(--intro-light-purple);
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--dark-purple);
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.theme-toggle:hover {
+    color: var(--primary-purple);
+    transform: scale(1.1);
+}
+
+body.dark-mode .theme-toggle {
+    color: #f0e68c; /* Muted gold for dark mode sun icon */
+}
+
+body.dark-mode .theme-toggle:hover {
+    color: #ffd700; /* Brighter gold on hover */
+}
+
 
 .container {
     max-width: 1000px;
@@ -64,7 +279,7 @@ body {
     flex-direction: column;
     gap: var(--spacing-md);
     animation: fadeIn 1s ease-out;
-    margin: var(--spacing-lg) 0;
+    margin: var(--spacing-lg) 0; /* Adjust margin for header */
 }
 
 @keyframes fadeIn {
@@ -74,34 +289,29 @@ body {
 
 h1, h2, h3 {
     text-align: center;
-    color: var(--dark-purple);
+    color: var(--h2-color); /* Updated for dark mode */
     font-weight: 700;
     letter-spacing: 0.6px;
     margin-bottom: var(--spacing-md);
     text-shadow: 0.5px 0.5px 2px var(--shadow-light);
+    transition: color 0.5s ease-in-out; /* Smooth transition for theme change */
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8em;
-    background: linear-gradient(45deg, var(--primary-purple), var(--vibrant-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-}
+/* Original h1 style for the main title, now inside header */
+/* The main h1 is now .header-title */
 
 .card {
-    background: var(--glass-bg);
+    background: var(--card-bg); /* Updated for dark mode */
     border-radius: var(--border-radius);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 10px 30px 0 var(--shadow-medium);
+    border: 1px solid var(--card-border); /* Updated for dark mode */
+    box-shadow: 0 10px 30px 0 var(--card-shadow); /* Updated for dark mode */
     backdrop-filter: blur(var(--blur-strength));
     -webkit-backdrop-filter: blur(var(--blur-strength));
     padding: var(--spacing-md);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-    transition: transform var(--transition-speed) cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow var(--transition-speed) ease;
+    transition: transform var(--transition-speed) cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow var(--transition-speed) ease, background 0.5s ease-in-out, border-color 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .card:hover {
@@ -113,34 +323,39 @@ label {
     font-weight: 600;
     margin-bottom: 6px;
     display: block;
-    color: var(--dark-purple);
+    color: var(--label-color); /* Updated for dark mode */
     font-size: 0.9em;
+    transition: color 0.5s ease-in-out; /* Smooth transition for theme change */
 }
 
 input, textarea {
     width: calc(100% - 20px);
     padding: 10px;
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--input-border); /* Updated for dark mode */
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    color: var(--text-dark);
+    background: var(--input-bg); /* Updated for dark mode */
+    color: var(--body-text-color); /* Updated for dark mode */
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
     outline: none;
-    transition: all var(--transition-speed) ease-in-out;
+    transition: all var(--transition-speed) ease-in-out, background 0.5s ease-in-out, border-color 0.5s ease-in-out, color 0.5s ease-in-out; /* Added for theme transition */
     resize: vertical;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);
 }
 
 input::placeholder, textarea::placeholder {
-    color: rgba(51, 51, 51, 0.4);
+    color: var(--input-placeholder-color); /* Updated for dark mode */
 }
 
 input:focus, textarea:focus {
-    border-color: var(--vibrant-purple);
+    border-color: var(--input-focus-border); /* Updated for dark mode */
     box-shadow: 0 0 0 3px rgba(165, 42, 226, 0.15), inset 0 1px 5px rgba(0,0,0,0.05);
     background: rgba(255, 255, 255, 0.25);
 }
+body.dark-mode input:focus, body.dark-mode textarea:focus {
+    background: rgba(50, 50, 50, 0.6);
+}
+
 
 textarea#journalEntry {
     min-height: 150px;
@@ -148,8 +363,8 @@ textarea#journalEntry {
 
 textarea#generatedStory {
     min-height: 200px;
-    background-color: rgba(240, 248, 255, 0.05);
-    border: 1px solid rgba(173, 216, 230, 0.15);
+    background-color: var(--textarea-story-bg); /* Updated for dark mode */
+    border: 1px solid var(--textarea-story-border); /* Updated for dark mode */
 }
 
 .action-btn {
@@ -157,21 +372,22 @@ textarea#generatedStory {
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
-    background-color: var(--medium-purple);
-    color: var(--text-light);
+    background-color: var(--action-btn-bg); /* Updated for dark mode */
+    color: var(--action-btn-text); /* Updated for dark mode */
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.95em;
     font-weight: 600;
-    transition: background-color var(--transition-speed) ease, transform 0.2s ease-out, box-shadow var(--transition-speed) ease;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease-out, box-shadow var(--transition-speed) ease, color 0.5s ease-in-out; /* Added for theme transition */
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    gap: 8px; /* Space for icons */
 }
 
 .action-btn:hover {
-    background-color: var(--primary-purple);
+    background-color: var(--action-btn-hover-bg); /* Updated for dark mode */
     transform: translateY(-2px);
     box-shadow: 0 5px 12px rgba(0,0,0,0.15);
 }
@@ -187,6 +403,20 @@ textarea#generatedStory {
 
 .primary-btn:hover {
     background-color: #E21B8B;
+}
+
+.secondary-btn {
+    background-color: var(--secondary-btn-bg); /* New for clear button */
+    color: var(--secondary-btn-text);
+}
+
+.secondary-btn:hover {
+    background-color: var(--secondary-btn-hover-bg);
+}
+
+.small-btn {
+    padding: 8px 15px;
+    font-size: 0.85em;
 }
 
 .recording-indicator {
@@ -445,18 +675,19 @@ textarea#generatedStory {
 
 /* Flatpickr Overrides */
 .flatpickr-input {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border: 1px solid var(--glass-border) !important;
+    background: var(--input-bg) !important; /* Updated for dark mode */
+    border: 1px solid var(--input-border) !important; /* Updated for dark mode */
     border-radius: 8px !important;
-    color: var(--text-dark) !important;
+    color: var(--body-text-color) !important; /* Updated for dark mode */
     padding: 10px !important;
     font-size: 1em !important;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.03) !important;
+    transition: all var(--transition-speed) ease-in-out, background 0.5s ease-in-out, border-color 0.5s ease-in-out, color 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .flatpickr-input:focus {
-    border-color: var(--vibrant-purple) !important;
-    box-shadow: 0 0 0 3px rgba(165, 42, 226, 0.15) !important;
+    border-color: var(--input-focus-border) !important; /* Updated for dark mode */
+    box-shadow: 0 0 0 3px rgba(165, 42, 226, 0.15), inset 0 1px 5px rgba(0,0,0,0.05);
     background: rgba(255, 255, 255, 0.25) !important;
 }
 
@@ -468,7 +699,8 @@ textarea#generatedStory {
     -webkit-backdrop-filter: blur(var(--blur-strength)) !important;
     border-radius: var(--border-radius) !important;
     font-family: 'Montserrat', sans-serif !important;
-    color: var(--text-dark) !important;
+    color: var(--body-text-color) !important; /* Updated for dark mode */
+    transition: background 0.5s ease-in-out, border-color 0.5s ease-in-out, color 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .flatpickr-months .flatpickr-prev-month,
@@ -490,13 +722,13 @@ textarea#generatedStory {
 }
 
 .flatpickr-day {
-    color: var(--text-dark) !important;
+    color: var(--body-text-color) !important; /* Updated for dark mode */
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out !important;
 }
 
 .flatpickr-day:hover {
     background-color: var(--light-purple) !important;
-    color: var(--text-dark) !important;
+    color: var(--body-text-color) !important; /* Updated for dark mode */
 }
 
 .flatpickr-day.selected, .flatpickr-day.selected:hover {
@@ -588,12 +820,12 @@ textarea#generatedStory {
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
-    color: var(--primary-purple);
+    color: var(--about-toggle-color); /* Updated for dark mode */
     transition: color 0.2s ease;
 }
 
 .about-toggle:hover {
-    color: var(--vibrant-purple);
+    color: var(--about-toggle-hover-color); /* Updated for dark mode */
 }
 
 .about-toggle .toggle-icon {
@@ -613,7 +845,7 @@ textarea#generatedStory {
 }
 
 .about-content.expanded {
-    max-height: 500px;
+    max-height: 500px; /* Adjust as needed */
     opacity: 1;
     padding-top: var(--spacing-sm);
 }
@@ -622,6 +854,7 @@ textarea#generatedStory {
     margin-bottom: var(--spacing-sm);
     font-size: 0.9em;
     line-height: 1.5;
+    color: var(--body-text-color); /* Inherit from body for dark mode */
 }
 
 .about-content ul {
@@ -636,7 +869,7 @@ textarea#generatedStory {
 .tech-stack {
     font-style: italic;
     font-size: 0.85em;
-    color: var(--dark-purple);
+    color: var(--tech-stack-color); /* Updated for dark mode */
     margin-top: var(--spacing-sm);
 }
 
@@ -649,11 +882,11 @@ textarea#generatedStory {
     max-height: 300px;
     overflow-y: auto;
     border-radius: var(--border-radius);
-    background: rgba(0,0,0,0.03);
+    background: rgba(0,0,0,0.03); /* Subtle background for scrollable area */
 }
 
 .journal-timeline-item {
-    background: var(--timeline-bg);
+    background: var(--timeline-item-bg); /* Updated for dark mode */
     border: 1px solid var(--glass-border);
     border-radius: 8px;
     padding: var(--spacing-sm);
@@ -666,37 +899,56 @@ textarea#generatedStory {
 }
 
 .journal-timeline-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--timeline-item-hover-bg); /* Updated for dark mode */
     transform: translateY(-1px);
     box-shadow: 0 2px 6px var(--shadow-medium);
 }
 
 .journal-timeline-item .item-date {
     font-weight: 600;
-    color: var(--dark-purple);
+    color: var(--dark-purple); /* Stays dark purple for contrast */
     margin-bottom: 3px;
     font-size: 0.9em;
 }
 
 .journal-timeline-item .item-snippet {
     font-size: 0.85em;
-    color: var(--text-dark);
+    color: var(--body-text-color); /* Updated for dark mode */
     margin-bottom: 3px;
     line-height: 1.3;
 }
 
 .journal-timeline-item .item-meta {
     font-size: 0.75em;
-    color: rgba(51, 51, 51, 0.6);
+    color: var(--timeline-item-meta-color); /* Updated for dark mode */
     font-style: italic;
 }
 
 .no-entries-message {
     text-align: center;
-    color: rgba(51, 51, 51, 0.5);
+    color: var(--no-data-text-color); /* Updated for dark mode */
     padding: var(--spacing-md);
     font-size: 0.9em;
 }
+
+/* Timeline Controls (New) */
+.timeline-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.timeline-controls .search-input {
+    flex-grow: 1;
+    min-width: 150px;
+}
+
+.timeline-controls .clear-search-btn {
+    padding: 8px 12px;
+    font-size: 1em;
+}
+
 
 /* --- Dashboard Section --- */
 .dashboard-section {
@@ -722,7 +974,7 @@ textarea#generatedStory {
     min-width: 120px;
     max-width: 180px;
     box-shadow: 0 2px 8px var(--shadow-light);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .stat-item:hover {
@@ -733,16 +985,18 @@ textarea#generatedStory {
 .stat-value {
     font-size: 1.8em;
     font-weight: 700;
-    color: var(--primary-purple);
+    color: var(--stat-value-color); /* Updated for dark mode */
     display: block;
     margin-bottom: 5px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    transition: color 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .stat-label {
     font-size: 0.85em;
-    color: var(--text-dark);
+    color: var(--stat-label-color); /* Updated for dark mode */
     opacity: 0.8;
+    transition: color 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .entries-per-month-chart {
@@ -757,31 +1011,32 @@ textarea#generatedStory {
     align-items: center;
     gap: var(--spacing-sm);
     font-size: 0.9em;
-    color: var(--text-dark);
+    color: var(--body-text-color); /* Updated for dark mode */
 }
 
 .month-label {
     flex-basis: 80px;
     flex-shrink: 0;
     font-weight: 600;
-    color: var(--dark-purple);
+    color: var(--dark-purple); /* Stays dark purple for contrast */
 }
 
 .month-bar-wrapper {
     flex-grow: 1;
     height: 15px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--month-bar-bg); /* Updated for dark mode */
     border-radius: 8px;
     overflow: hidden;
     position: relative;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    transition: background 0.5s ease-in-out; /* Added for theme transition */
 }
 
 .month-bar {
     height: 100%;
-    background-color: var(--medium-purple);
+    background-color: var(--month-bar-fill); /* Updated for dark mode */
     width: 0%; /* Will be set by JS */
-    transition: width 0.5s ease-out;
+    transition: width 0.5s ease-out, background-color 0.5s ease-in-out; /* Added for theme transition */
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -799,7 +1054,7 @@ textarea#generatedStory {
 
 .entries-per-month-chart .no-data-message {
     text-align: center;
-    color: rgba(51, 51, 51, 0.5);
+    color: var(--no-data-text-color); /* Updated for dark mode */
     padding: var(--spacing-md);
     font-size: 0.9em;
 }
@@ -861,9 +1116,55 @@ textarea#generatedStory {
     visibility: visible;
 }
 
+/* Memory Prompt Section (New) */
+.memory-prompt-section {
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.prompt-text {
+    font-size: 1.1em;
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+    color: var(--prompt-text-color); /* Updated for dark mode */
+    transition: color 0.5s ease-in-out;
+    min-height: 2.5em; /* Ensure consistent height even if prompt is short */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-bottom-actions {
+    margin-top: var(--spacing-md);
+    text-align: center;
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .container, .intro-container.minimal {
+    .container {
+        padding: var(--spacing-md);
+        margin: calc(var(--spacing-md) + 60px) 0 var(--spacing-md) 0; /* Adjust for sticky header height */
+    }
+
+    .app-header {
+        padding: var(--spacing-sm);
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .header-title {
+        font-size: 1.8em;
+    }
+
+    .main-nav .nav-links {
+        gap: var(--spacing-sm);
+    }
+
+    .intro-container.minimal {
         padding: var(--spacing-md);
     }
 
@@ -933,5 +1234,21 @@ textarea#generatedStory {
         font-size: 1em;
         bottom: var(--spacing-md);
         right: var(--spacing-md);
+    }
+
+    .timeline-controls {
+        flex-direction: column;
+    }
+}
+
+/* Adjust container margin when header is sticky to prevent content hiding behind it */
+body {
+    padding-top: 80px; /* Approximate header height to prevent content from going under it */
+}
+
+/* Specific adjustment for when the header wraps */
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px; /* More padding if header content wraps */
     }
 }

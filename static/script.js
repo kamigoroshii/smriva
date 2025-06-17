@@ -26,14 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxClose = document.querySelector('.lightbox-close');
-    const lightboxPrev = document.querySelector('.lightbox-prev');
-    const lightboxNext = document.querySelector('.lightbox-next');
+    const lightboxPrev = document.querySelector('.lightbox-nav.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-nav.lightbox-next');
 
-    // NEW UI elements for Journal Timeline & About Section & Dashboard
+    // UI elements for Journal Timeline & About Section & Dashboard
     const aboutToggle = document.querySelector('.about-toggle');
     const aboutContent = document.querySelector('.about-content');
     const journalTimeline = document.getElementById('journalTimeline');
-    // const noEntriesMessage = document.querySelector('.no-entries-message'); // This will be dynamic content of journalTimeline
 
     const totalEntriesSpan = document.getElementById('totalEntries');
     const totalWordsSpan = document.getElementById('totalWords');
@@ -42,11 +41,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
+    // NEW UI elements
+    const themeToggle = document.getElementById('themeToggle');
+    const clearEntryBtn = document.getElementById('clearEntryBtn');
+    const timelineSearchInput = document.getElementById('timelineSearch');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const downloadAllEntriesBtn = document.getElementById('downloadAllEntriesBtn');
+    const memoryPromptText = document.getElementById('memoryPromptText');
+    const newPromptBtn = document.getElementById('newPromptBtn');
 
     let uploadedImageFiles = []; // Stores File objects for images currently selected for a journal entry
     let existingImagePaths = []; // Stores paths for images already saved with an entry
     let currentStoryImages = []; // Stores image URLs for the current generated story
     let currentImageIndex = 0; // For lightbox navigation
+    let allJournalEntries = []; // To store all entries for client-side filtering/download
+
+    const memoryPrompts = [
+        "What was a moment today that made you smile or laugh?",
+        "Describe a challenge you faced recently and how you overcame it (or are trying to).",
+        "What is one small thing you're grateful for today?",
+        "If you could give advice to your past self, what would it be?",
+        "What new thing did you learn today, no matter how small?",
+        "Describe a dream you had recently.",
+        "What are your hopes or plans for tomorrow?",
+        "Recall a favorite memory from your childhood.",
+        "What's a song that resonates with you today, and why?",
+        "If your day were a color, what color would it be and why?",
+        "What is something you've been putting off? How do you feel about it?",
+        "Describe a person who has positively impacted your life recently."
+    ];
 
     // --- Flatpickr Initialization ---
     const journalDatePicker = flatpickr(journalDateInput, {
@@ -92,6 +115,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000); // Message disappears after 3 seconds
     }
 
+    // --- Theme Toggle ---
+    function applyTheme(theme) {
+        document.body.classList.remove('light-mode', 'dark-mode');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme', theme);
+
+        const icon = theme === 'dark-mode' ? 'fas fa-sun' : 'fas fa-moon';
+        themeToggle.innerHTML = `<i class="${icon}"></i>`;
+    }
+
+    function toggleTheme() {
+        const currentTheme = localStorage.getItem('theme') || 'light-mode';
+        const newTheme = currentTheme === 'light-mode' ? 'dark-mode' : 'light-mode';
+        applyTheme(newTheme);
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem('theme') || 'light-mode';
+    applyTheme(savedTheme);
+
+
     // --- Journal Entry Section ---
 
     // Load entry for selected date
@@ -113,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             hideLoading();
             // Refresh timeline and dashboard after loading an entry
-            fetchAllEntries();
+            fetchAllEntries(); // This updates allJournalEntries
             fetchDashboardStats();
         } catch (error) {
             console.error('Error loading journal entry:', error);
@@ -193,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pathToRemove) {
             // Remove from existingImagePaths
             existingImagePaths = existingImagePaths.filter(p => p !== pathToRemove);
-        } else if (indexToRemove !== null) {
+        } else if (indexToRemove !== null && indexToRemove !== undefined) {
             // Remove from uploadedImageFiles based on index
             uploadedImageFiles.splice(indexToRemove, 1);
         }
@@ -278,6 +324,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const files = Array.from(event.target.files);
         uploadedImageFiles = [...uploadedImageFiles, ...files]; // Add new files to existing ones
         renderImagePreviews(existingImagePaths, imagePreviewContainer, true); // Re-render to show new and existing
+    });
+
+    // Clear Entry Functionality (New)
+    clearEntryBtn.addEventListener('click', () => {
+        journalEntryTextarea.value = '';
+        uploadedImageFiles = [];
+        existingImagePaths = [];
+        renderImagePreviews([], imagePreviewContainer, true);
+        showStatusMessage('Journal entry cleared!');
     });
 
 
@@ -432,7 +487,10 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch((error) => console.error('Error sharing:', error));
         } else {
             showStatusMessage('Web Share API not supported or no story to share.', true);
-            alert("Sharing not supported in your browser. You can copy the text manually.");
+            // Replace alert with a custom message box if needed, but for now, keep as a fallback
+            // In a real application, you'd show a custom modal.
+            // alert("Sharing not supported in your browser. You can copy the text manually.");
+            showStatusMessage("Sharing not supported in your browser. Copy text manually.", true);
         }
     });
 
@@ -490,27 +548,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/get_all_entries');
             const data = await response.json();
-            if (data.success && data.entries.length > 0) {
-                journalTimeline.innerHTML = ''; // Clear existing "No entries" message or previous items
-                data.entries.forEach(entry => {
-                    const item = document.createElement('div');
-                    item.className = 'journal-timeline-item';
-                    item.dataset.date = entry.date;
-                    item.innerHTML = `
-                        <div class="item-date">${entry.date}</div>
-                        <div class="item-snippet">${entry.snippet}</div>
-                        <div class="item-meta">${entry.image_count} image(s)</div>
-                    `;
-                    item.addEventListener('click', () => {
-                        journalDatePicker.setDate(entry.date); // Select date in calendar
-                        loadJournalEntry(entry.date); // Load entry into journal section
-                        // Optionally, scroll to the journal section for better UX
-                        document.getElementById('journalEntry').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    });
-                    journalTimeline.appendChild(item);
-                });
+            if (data.success) {
+                allJournalEntries = data.entries; // Store all entries
+                renderTimeline(allJournalEntries); // Render initial unfiltered timeline
             } else {
-                journalTimeline.innerHTML = '<p class="no-entries-message">No past entries yet. Start writing your story!</p>';
+                journalTimeline.innerHTML = '<p class="no-entries-message error-message">Error loading timeline. Please refresh.</p>';
             }
             hideLoading();
         } catch (error) {
@@ -520,7 +562,73 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Dashboard Functions (NEWLY FOCUSED) ---
+    function renderTimeline(entriesToRender) {
+        journalTimeline.innerHTML = ''; // Clear existing
+        if (entriesToRender.length > 0) {
+            entriesToRender.forEach(entry => {
+                const item = document.createElement('div');
+                item.className = 'journal-timeline-item';
+                item.dataset.date = entry.date;
+                item.innerHTML = `
+                    <div class="item-date">${entry.date}</div>
+                    <div class="item-snippet">${entry.snippet}</div>
+                    <div class="item-meta">${entry.image_count} image(s)</div>
+                `;
+                item.addEventListener('click', () => {
+                    journalDatePicker.setDate(entry.date); // Select date in calendar
+                    loadJournalEntry(entry.date); // Load entry into journal section
+                    document.getElementById('journal-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                journalTimeline.appendChild(item);
+            });
+        } else {
+            journalTimeline.innerHTML = '<p class="no-entries-message">No matching entries found.</p>';
+        }
+    }
+
+    // Timeline Search/Filter (New)
+    timelineSearchInput.addEventListener('input', () => {
+        filterTimelineEntries();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+        timelineSearchInput.value = '';
+        filterTimelineEntries();
+    });
+
+    function filterTimelineEntries() {
+        const searchTerm = timelineSearchInput.value.toLowerCase();
+        const filteredEntries = allJournalEntries.filter(entry =>
+            entry.content.toLowerCase().includes(searchTerm) ||
+            entry.date.includes(searchTerm)
+        );
+        renderTimeline(filteredEntries);
+    }
+
+    // Download All Entries (New)
+    downloadAllEntriesBtn.addEventListener('click', () => {
+        if (allJournalEntries.length === 0) {
+            showStatusMessage('No entries to download.', true);
+            return;
+        }
+
+        const formattedEntries = allJournalEntries.map(entry =>
+            `Date: ${entry.date}\nContent:\n${entry.content}\nImages: ${entry.image_paths.join(', ')}\n---\n`
+        ).join('\n');
+
+        const blob = new Blob([formattedEntries], { type: 'text/plain;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'LifeStory_All_Entries.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+        showStatusMessage('All entries downloaded!');
+    });
+
+
+    // --- Dashboard Functions ---
     async function fetchDashboardStats() {
         showLoading('Loading insights...');
         try {
@@ -582,6 +690,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Memory Prompt (New) ---
+    function displayRandomPrompt() {
+        const randomIndex = Math.floor(Math.random() * memoryPrompts.length);
+        memoryPromptText.textContent = memoryPrompts[randomIndex];
+    }
+
+    newPromptBtn.addEventListener('click', displayRandomPrompt);
+
 
     // --- Initial Load ---
     // Load today's entry on initial page load (robust check for date selection)
@@ -593,6 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fallback if no date is initially selected (e.g., if defaultDate fails)
         loadJournalEntry(new Date().toISOString().split('T')[0]);
     }
-    // Also fetch dashboard stats independently in case loadJournalEntry has issues or to ensure faster dashboard load
-    // fetchDashboardStats(); // This is called by loadJournalEntry, no need to call twice unless specific need.
+
+    // Display initial memory prompt
+    displayRandomPrompt();
 });
